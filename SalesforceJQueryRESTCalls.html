@@ -35,7 +35,6 @@ input[type=submit]:hover {
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.js"/>
 <script type="text/javascript">
-$(document).ready(function() { 
 var thisURL = window.location.href;
 var thisauthCode;
 console.log('Here');
@@ -45,7 +44,6 @@ if(thisURL.includes("code"))
 	thisauthCode = thisURL.split("code=").pop();
 	alert(thisauthCode);
 }
-});
 	function sendToSf(){
 			var sub = document.getElementById("subject").value;
 			var responseCaseId;
