@@ -1,0 +1,163 @@
+<html>
+<head>
+<style type="text/css">
+	body {font-family: Arial, Helvetica, sans-serif;}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.js"/>
+<script type="text/javascript">
+var thisURL = window.location.href;
+var thisauthCode;
+if(thisURL.includes("code"))
+{
+	thisauthCode = thisURL.split("code=").pop();
+	alert(thisauthCode);
+}
+	function sendToSf(){
+			var sub = document.getElementById("subject").value;
+			var responseCaseId;
+			var data = JSON.stringify({
+			  "Subject": sub
+			});
+
+			var xhr = new XMLHttpRequest();
+
+			xhr.addEventListener("readystatechange", function () {
+			  if (this.readyState === 4) {
+			  responseCaseId = jQuery.parseJSON(this.responseText).id;
+			    console.log(responseCaseId);
+			  }
+			});
+
+			xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/Case/");
+			xhr.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
+			xhr.setRequestHeader("Content-Type", "application/json");
+
+			xhr.send(data);
+			/*****************************SEND CONTENTVERSION CALL ****************/
+			var contentVersionID;
+			var  fileBody = document.querySelector('input[type=file]').files[0];
+			var filebs;
+			var data2;
+			var reader  = new FileReader();
+			reader.onloadend = function () {
+			        		filebs = reader.result.split('base64,').pop();
+			            alert(filebs);
+			            data2 = JSON.stringify({
+			            "PathOnClient": "CheckThisOut",
+			            "Title": "AttachmentFromWeb",
+			            "VersionData": filebs
+			          });
+			          var xhr2 = new XMLHttpRequest();
+
+			          xhr2.addEventListener("readystatechange", function () {
+			            if (this.readyState === 4) {
+			            contentVersionID = jQuery.parseJSON( this.responseText).id;
+			              console.log(this.responseText);
+			            }
+			          });
+
+			          xhr2.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/ContentVersion/");
+			          xhr2.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
+			          xhr2.setRequestHeader("Content-Type", "application/json");
+			          xhr2.setRequestHeader("Cache-Control", "no-cache");
+			          xhr2.setRequestHeader("Postman-Token", "a62b8622-40cd-45e1-bb72-258932f44113");
+
+			          xhr2.send(data2);
+			        }
+			       reader.readAsDataURL(fileBody);
+
+			alert('Data 2'+data2);
+
+
+
+			/**********************************************************************/
+			/******************************GET DOCUMENTY ID****************************************/
+			var data3 = null;
+			var contentDocumentID;
+			var xhr3 = new XMLHttpRequest();
+			alert(contentVersionID);
+			xhr3.addEventListener("readystatechange", function () {
+			  if (this.readyState === 4) {
+			  contentDocumentID = jQuery.parseJSON(this.responseText).records[0].ContentDocumentId;
+			    console.log(this.responseText);
+			  }
+			});
+
+			xhr3.open("GET", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v42.0/query?q=SELECT+contentdocumentid+FROM+contentversion+WHERE+id="+contentVersionID);
+			xhr3.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
+			xhr3.setRequestHeader("Cache-Control", "no-cache");
+			xhr3.setRequestHeader("Postman-Token", "7c94a578-d6fa-4782-88d6-b26904381803");
+
+			xhr3.send(data3);
+
+			/**********************************************************************/
+			/****************************INSERT DOCUMENT LINK******************************************/
+			var data22 = JSON.stringify({
+			"ContentDocumentId" : contentDocumentID,
+			"LinkedEntityId" : responseCaseId, 
+			"ShareType" : "I",
+			"Visibility" : "AllUsers"
+			});
+
+			var xhr22 = new XMLHttpRequest();
+
+			xhr22.addEventListener("readystatechange", function () {
+			  if (this.readyState === 4) {
+			    console.log(this.responseText);
+			  }
+			});
+
+			xhr22.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/ContentDocumentLink/");
+			xhr22.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
+			xhr22.setRequestHeader("Content-Type", "application/json");
+			xhr22.setRequestHeader("Cache-Control", "no-cache");
+			xhr22.setRequestHeader("Postman-Token", "a62b8622-40cd-45e1-bb72-258932f44113");
+
+			xhr22.send(data22);
+			/**********************************************************************/
+
+	}
+</script>
+</head>
+<body>	
+	<div class="container">
+	  <form >   
+	  <input type="button" value="Login To Salesforce" onclick="window.location='https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&redirect_uri=https://sites.google.com/site/salesforcetestcustomrest';">
+	    <label for="subject">Subject</label>
+	    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+	  <input id="inputFileToLoad" type="file"  />
+	    <input type="button" value="Submit" onclick="sendToSf()" >
+	  </form>
+	</div>
+</body>
+</html>  
