@@ -38,8 +38,10 @@ input[type=submit]:hover {
 $(document).ready(function() { 
 var thisURL = window.location.href;
 var thisauthCode;
+alert('Here');
 if(thisURL.includes("code"))
 {
+        alert('IN IF');
 	thisauthCode = thisURL.split("code=").pop();
 	alert(thisauthCode);
 }
