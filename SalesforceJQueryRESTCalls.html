@@ -2,7 +2,6 @@
 <head>
 <style type="text/css">
 	body {font-family: Arial, Helvetica, sans-serif;}
-
 input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
@@ -13,7 +12,6 @@ input[type=text], select, textarea {
     margin-bottom: 16px;
     resize: vertical;
 }
-
 input[type=submit] {
     background-color: #4CAF50;
     color: white;
@@ -22,132 +20,85 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
-
 input[type=submit]:hover {
     background-color: #45a049;
 }
-
 .container {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
 }
 </style>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 var thisURL = window.location.href;
 var thisauthCode;
+var accessTok;
 console.log("Here");
 if(thisURL.includes("code"))
 {
-        alert('IN IF');
 	thisauthCode = thisURL.split("code=").pop();
-	alert(thisauthCode);
+    getAuthCode(thisauthCode);
 }
+
+function getAuthCode(code){
+          var data = "grant_type=authorization_code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https%3A%2F%2Fshaileshjyotigit.github.io%2FtestNewSfRestTest%2FSalesforceJQueryRESTCalls.html&code="+code;
+
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+        accessTok = jQuery.parseJSON( this.responseText).access_token;
+          console.log(this.responseText);
+        }
+      });
+
+      xhr.open("POST", "https://test.salesforce.com/services/oauth2/token");
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(data);
+
+}
+function getBase64(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+     console.log(reader.result);
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
+}
+
 	function sendToSf(){
 			var sub = document.getElementById("subject").value;
-			var responseCaseId;
+            var  fileBody = document.querySelector('input[type=file]').files[0];
+            var base64 = getBase64(fileBody);
 			var data = JSON.stringify({
-			  "Subject": sub
+			    "Subject": sub,
+  				"Description": "i am stuck",
+  				"Origin": "Web",
+  				"ContentLocation": "S",
+  				"PathOnClient": "File_name",
+  				"Title": "file_name_in_salesforce",
+  				"VersionData": base64
 			});
+            
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                console.log(this.responseText);
+              }
+            });
 
-			var xhr = new XMLHttpRequest();
-
-			xhr.addEventListener("readystatechange", function () {
-			  if (this.readyState === 4) {
-			  responseCaseId = jQuery.parseJSON(this.responseText).id;
-			    console.log(responseCaseId);
-			  }
-			});
-
-			xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/Case/");
-			xhr.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
-			xhr.setRequestHeader("Content-Type", "application/json");
-
-			xhr.send(data);
-			/*****************************SEND CONTENTVERSION CALL ****************/
-			var contentVersionID;
-			var  fileBody = document.querySelector('input[type=file]').files[0];
-			var filebs;
-			var data2;
-			var reader  = new FileReader();
-			reader.onloadend = function () {
-			        		filebs = reader.result.split('base64,').pop();
-			            alert(filebs);
-			            data2 = JSON.stringify({
-			            "PathOnClient": "CheckThisOut",
-			            "Title": "AttachmentFromWeb",
-			            "VersionData": filebs
-			          });
-			          var xhr2 = new XMLHttpRequest();
-
-			          xhr2.addEventListener("readystatechange", function () {
-			            if (this.readyState === 4) {
-			            contentVersionID = jQuery.parseJSON( this.responseText).id;
-			              console.log(this.responseText);
-			            }
-			          });
-
-			          xhr2.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/ContentVersion/");
-			          xhr2.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
-			          xhr2.setRequestHeader("Content-Type", "application/json");
-			          xhr2.setRequestHeader("Cache-Control", "no-cache");
-			          xhr2.setRequestHeader("Postman-Token", "a62b8622-40cd-45e1-bb72-258932f44113");
-
-			          xhr2.send(data2);
-			        }
-			       reader.readAsDataURL(fileBody);
-
-			alert('Data 2'+data2);
-
-
-
-			/**********************************************************************/
-			/******************************GET DOCUMENTY ID****************************************/
-			var data3 = null;
-			var contentDocumentID;
-			var xhr3 = new XMLHttpRequest();
-			alert(contentVersionID);
-			xhr3.addEventListener("readystatechange", function () {
-			  if (this.readyState === 4) {
-			  contentDocumentID = jQuery.parseJSON(this.responseText).records[0].ContentDocumentId;
-			    console.log(this.responseText);
-			  }
-			});
-
-			xhr3.open("GET", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v42.0/query?q=SELECT+contentdocumentid+FROM+contentversion+WHERE+id="+contentVersionID);
-			xhr3.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
-			xhr3.setRequestHeader("Cache-Control", "no-cache");
-			xhr3.setRequestHeader("Postman-Token", "7c94a578-d6fa-4782-88d6-b26904381803");
-
-			xhr3.send(data3);
-
-			/**********************************************************************/
-			/****************************INSERT DOCUMENT LINK******************************************/
-			var data22 = JSON.stringify({
-			"ContentDocumentId" : contentDocumentID,
-			"LinkedEntityId" : responseCaseId, 
-			"ShareType" : "I",
-			"Visibility" : "AllUsers"
-			});
-
-			var xhr22 = new XMLHttpRequest();
-
-			xhr22.addEventListener("readystatechange", function () {
-			  if (this.readyState === 4) {
-			    console.log(this.responseText);
-			  }
-			});
-
-			xhr22.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/data/v20.0/sobjects/ContentDocumentLink/");
-			xhr22.setRequestHeader("authorization", "OAuth 00Dq0000000CAceEAG!ARAAQJfMY4of3fx93xTVx5oYMRt3O4.O8KN.Vus1e3zu6SYc2k7WcCT4H7fLG5_8RF1G6KmESDvMan.b80wyuk8tpTHoAavj");
-			xhr22.setRequestHeader("Content-Type", "application/json");
-			xhr22.setRequestHeader("Cache-Control", "no-cache");
-			xhr22.setRequestHeader("Postman-Token", "a62b8622-40cd-45e1-bb72-258932f44113");
-
-			xhr22.send(data22);
-			/**********************************************************************/
-
+            xhr.open("POST", "https://customercare-mastercard--Dev.cs21.my.salesforce.com/services/%20apexrest/createCaseWithAttachment/v1/");
+            xhr.setRequestHeader("authorization", "OAuth "+accessTok);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send(data);
+			
+			
+            
+			
 	}
 </script>
 </head>
