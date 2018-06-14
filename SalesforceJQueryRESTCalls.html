@@ -52,7 +52,7 @@ function getAuthCode(code){
 	//xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-		console.log("ReturnedJSON  "+this.responseText);
+		console.log("ReturnedJSON  "+xhr.responseText);
       //  athcode = jQuery.parseJSON(this.responseText).access_token;
 		console.log(this);
 		//return athcode;
