@@ -34,6 +34,7 @@ input[type=submit]:hover {
 var thisURL = window.location.href;
 var thisauthCode;
 var accessTok;
+var base64str;
 console.log("Here");
 if(thisURL.includes("code"))
 {
@@ -54,7 +55,7 @@ function getAuthCode(code){
         if (this.readyState === 4 && this.status == 200) {
 		console.log("ReturnedJSON  "+xhr.responseText);
         accessTok  = jQuery.parseJSON(this.responseText).access_token;
-		console.log(athcode);
+		console.log(accessTok);
 		//return athcode;
           
         }
@@ -75,14 +76,16 @@ function getBase64(file) {
    reader.onerror = function (error) {
      console.log('Error: ', error);
    };
-var base64vr = reader.result.split("base64,").pop();
+ base64Str = reader.result.split("base64,").pop();
 	return base64vr;
 }
 
 	function sendToSf(){
 			var sub = document.getElementById("subject").value;
             var  fileBody = document.querySelector('input[type=file]').files[0];
-            var base64 = getBase64(fileBody);
+		console.log(fileBody);
+             getBase64(fileBody);
+		console.log(base64str);
 			var data = JSON.stringify({
 			    "Subject": sub,
   				"Description": "i am stuck",
@@ -90,7 +93,7 @@ var base64vr = reader.result.split("base64,").pop();
   				"ContentLocation": "S",
   				"PathOnClient": "File_name",
   				"Title": "file_name_in_salesforce",
-  				"VersionData": base64
+  				"VersionData": base64str
 			});
             
             var xhr = new XMLHttpRequest();
