@@ -76,9 +76,9 @@ function getAuthCode(code){
 		   reader.readAsDataURL(fileBody);
 		   reader.onload = function () {
 		     console.log(reader.result);
-			   base64Str = reader.result.split("base64,").pop();
+			   base64str = reader.result.split("base64,").pop();
 		   };
-		console.log('base64STR'+base64Str);
+		console.log('base64STR'+base64str);
 		//console.log(base64str);
 			var data = JSON.stringify({
 			    "Subject": sub,
