@@ -77,8 +77,7 @@ function getAuthCode(code){
 		   reader.onload = function () {
 		     console.log(reader.result);
 			   base64str = reader.result.split("base64,").pop();
-		   };
-		console.log('base64STR'+base64str);
+			   console.log('base64STR'+base64str);
 		//console.log(base64str);
 			var data = JSON.stringify({
 			    "Subject": sub,
@@ -101,6 +100,8 @@ function getAuthCode(code){
             xhr.setRequestHeader("authorization", "OAuth "+accessTok);
             xhr.setRequestHeader("content-type", "application/json");
             xhr.send(data);
+		   };
+		
 			
 			
             
