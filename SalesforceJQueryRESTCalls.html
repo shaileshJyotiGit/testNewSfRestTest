@@ -72,11 +72,12 @@ function getBase64(file) {
    reader.readAsDataURL(file);
    reader.onload = function () {
      console.log(reader.result);
+	   base64Str = reader.result.split("base64,").pop();
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
    };
- base64Str = reader.result.split("base64,").pop();
+ //base64Str = reader.result.split("base64,").pop();
 }
 
 	function sendToSf(){
