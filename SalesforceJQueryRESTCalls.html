@@ -46,6 +46,7 @@ function getAuthCode(code){
 	 var newcd = code.replace("%3D%3D","==");
 	console.log("CODEEEEE   "+code);
           var data = "grant_type=authorization_code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html&code="+newcd;
+	console.log("Data Going "+data);
 	var athcode;
       var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
