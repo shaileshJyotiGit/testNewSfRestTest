@@ -34,7 +34,7 @@ input[type=submit]:hover {
 var thisURL = window.location.href;
 var thisauthCode;
 var accessTok;
-var base64str;
+
 console.log("Here");
 if(thisURL.includes("code"))
 {
@@ -67,25 +67,19 @@ function getAuthCode(code){
       xhr.send(data);
       
 }
-function getBase64(file) {
-   var reader = new FileReader();
-   reader.readAsDataURL(file);
-   reader.onload = function () {
-     console.log(reader.result);
-	   base64Str = reader.result.split("base64,").pop();
-   };
-   reader.onerror = function (error) {
-     console.log('Error: ', error);
-   };
- //base64Str = reader.result.split("base64,").pop();
-}
 
 	function sendToSf(){
 			var sub = document.getElementById("subject").value;
             var  fileBody = document.querySelector('input[type=file]').files[0];
-		console.log(fileBody);
-             getBase64(fileBody);
-		console.log(base64str);
+		var base64str;
+		var reader = new FileReader();
+		   reader.readAsDataURL(file);
+		   reader.onload = function () {
+		     console.log(reader.result);
+			   base64Str = reader.result.split("base64,").pop();
+		   };
+		console.log('base64STR'+base64Str);
+		//console.log(base64str);
 			var data = JSON.stringify({
 			    "Subject": sub,
   				"Description": "i am stuck",
