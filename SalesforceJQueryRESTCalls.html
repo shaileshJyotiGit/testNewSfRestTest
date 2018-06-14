@@ -48,6 +48,7 @@ function getAuthCode(code){
           var data = "grant_type=authorization_code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html&code="+newcd;
 	var athcode;
       var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
 		console.log("ReturnedJSON  "+this.responseText);
@@ -60,7 +61,7 @@ function getAuthCode(code){
 
       xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/oauth2/token");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+	xhr.setRequestHeader("Cache-Control", "no-cache");
       xhr.send(data);
       
 }
