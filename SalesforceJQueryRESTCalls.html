@@ -100,7 +100,7 @@ var base64vr = reader.result.split("base64,").pop();
               }
             });
 
-            xhr.open("POST", "https://customercare-mastercard--Dev.cs21.my.salesforce.com/services/%20apexrest/createCaseWithAttachment/v1/");
+            xhr.open("POST", "https://customercare-mastercard--Dev.cs21.my.salesforce.com/services/apexrest/createCaseWithAttachment/v1/");
             xhr.setRequestHeader("authorization", "OAuth "+accessTok);
             xhr.setRequestHeader("content-type", "application/json");
             xhr.send(data);
