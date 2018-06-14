@@ -60,7 +60,7 @@ function getAuthCode(code){
         }
       });
 
-      xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/oauth2/token", true);
+      xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/oauth2/token", false);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.setRequestHeader("Accept", "application/json");
       xhr.send(data);
