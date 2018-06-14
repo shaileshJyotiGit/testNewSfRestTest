@@ -48,6 +48,7 @@ function getAuthCode(code){
       var xhr = new XMLHttpRequest();
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
+		console.log("ReturnedJSON  "+this.responseText);
         athcode = jQuery.parseJSON(this.responseText).access_token;
 		console.log(this.responseText);
 		return athcode;
