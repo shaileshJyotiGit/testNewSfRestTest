@@ -44,10 +44,9 @@ if(thisURL.includes("code"))
 
 function getAuthCode(code){
 	console.log("CODEEEEE   "+code);
-          var data = "grant_type=authorization_code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https%3A%2F%2Fshaileshjyotigit.github.io%2FtestNewSfRestTest%2FSalesforceJQueryRESTCalls.html&code="+code;
+          var data = "grant_type=authorization_code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html&code="+code;
 	var athcode;
       var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
 		console.log("ReturnedJSON  "+this.responseText);
