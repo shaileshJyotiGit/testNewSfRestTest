@@ -47,7 +47,7 @@ function getAuthCode(code){
       var xhr = new XMLHttpRequest();
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-        accessTok = jQuery.parseJSON( this.responseText).access_token;
+        accessTok = jQuery.parseJSON(this.responseText).access_token;
           console.log(this.responseText);
         }
       });
