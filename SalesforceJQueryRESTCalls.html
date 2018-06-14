@@ -39,7 +39,7 @@ if(thisURL.includes("code"))
 {
 	thisauthCode = thisURL.split("code=").pop();
     accessTok = getAuthCode(thisauthCode);
-	console.log("Access Token"+accessTok);
+	//console.log("Access Token"+accessTok);
 }
 
 function getAuthCode(code){
@@ -53,9 +53,9 @@ function getAuthCode(code){
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
 		console.log("ReturnedJSON  "+this.responseText);
-        athcode = jQuery.parseJSON(this.responseText).access_token;
-		console.log(this.responseText);
-		return athcode;
+      //  athcode = jQuery.parseJSON(this.responseText).access_token;
+		console.log(this);
+		//return athcode;
           
         }
       });
