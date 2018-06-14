@@ -54,7 +54,7 @@ function getAuthCode(code){
         if (this.readyState === 4 && this.status == 200) {
 		console.log("ReturnedJSON  "+xhr.responseText);
         athcode = jQuery.parseJSON(this.responseText).access_token;
-		console.log(this);
+		console.log(athcode);
 		return athcode;
           
         }
