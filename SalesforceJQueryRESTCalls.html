@@ -50,7 +50,7 @@ function getAuthCode(code){
 	console.log("Data Going "+data);
 	var athcode;
       var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
+	//xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4 && this.status == 200) {
 		console.log("ReturnedJSON  "+xhr.responseText);
@@ -64,7 +64,7 @@ function getAuthCode(code){
       xhr.open("POST", "https://test.salesforce.com/services/oauth2/token");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("Accept", "application/json");
-      xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+      //xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 	//("Access-Control-Allow-Origin: *")
       xhr.send(data);
       
