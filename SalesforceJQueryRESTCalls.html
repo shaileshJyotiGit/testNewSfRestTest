@@ -50,7 +50,7 @@ function getAuthCode(code){
 	console.log("Data Going "+data);
 	var athcode;
       var xhr = new XMLHttpRequest();
-	//xhr.withCredentials = true;
+	xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4 && this.status == 200) {
 		console.log("ReturnedJSON  "+xhr.responseText);
