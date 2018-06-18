@@ -39,7 +39,7 @@ console.log("Here");
 if(thisURL.includes("access_token"))
 {
 	var accessTok1 = thisURL.split("access_token=").pop();
-	accessTok = accessTok1.split('&refresh_token').shift();
+	accessTok = accessTok1.split('&instance_url').shift();
         //accessTok = getAuthCode(thisauthCode);
 	console.log("Access Token"+accessTok);
 }
