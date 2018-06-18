@@ -99,6 +99,7 @@ if(thisURL.includes("access_token"))
             xhr.addEventListener("readystatechange", function () {
               if (this.readyState === 4) {
                 console.log(this.responseText);
+		 window.open("https://shaileshjyotigit.github.io/testNewSfRestTest/thankyoupage.html&caseID="+this.responseText.split("case ID").pop(),"_self")
               }
             });
 
@@ -118,7 +119,7 @@ if(thisURL.includes("access_token"))
 <body>	
 	<div class="container">
 	  <form >   
-	  <input type="button" value="Login To Salesforce" onclick="window.location='https://test.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/thankyoupage.html';">
+	  <input type="button" value="Login To Salesforce" onclick="window.location='https://test.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html';">
 	    <label for="subject">Subject</label>
 	    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
 	  <input id="inputFileToLoad" type="file"  />
