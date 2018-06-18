@@ -11,9 +11,11 @@
 </style>
     
     <script>
-      var div = document.getElementById('itm');
+      document.addEventListener("DOMContentLoaded", function(event) {
+    var div = document.getElementById('itm');
 
-      div.innerHTML += 'Case ID: '+thisURL.split("caseID").pop();
+      div.innerHTML += '<br/>Case ID: '+thisURL.split("caseID").pop();
+});
     </script>
   
   </head>
