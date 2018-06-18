@@ -99,7 +99,8 @@ if(thisURL.includes("access_token"))
             xhr.addEventListener("readystatechange", function () {
               if (this.readyState === 4) {
                 console.log(this.responseText);
-		 window.open("https://shaileshjyotigit.github.io/testNewSfRestTest/thankyoupage.html&caseID="+this.responseText.split("case ID").pop(),"_self")
+		 window.open("https://shaileshjyotigit.github.io/testNewSfRestTest/thankyoupage.html","_self");
+		      //+this.responseText.split("case ID").pop()
               }
             });
 
