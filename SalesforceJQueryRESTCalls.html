@@ -63,16 +63,11 @@ function getAuthCode(code){
 
       xhr.open("POST", "https://customercare-mastercard--dev.cs21.my.salesforce.com/services/oauth2/token");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      //xhr.setRequestHeader("Accept", "application/json");
-      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://shaileshjyotigit.github.io");
-	xhr.setRequestHeader("Access-Control-Allow-Methods", "POST");
-	//xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-	//("Access-Control-Allow-Origin: *")
-	/*
-	Access-Control-Allow-Origin:  http://127.0.0.1:3000
-Access-Control-Allow-Methods: POST
-Access-Control-Allow-Headers: Content-Type, Authorization
-	*/
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+      xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization,X-Authorization"); 
+      xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
+      xhr.setRequestHeader("Access-Control-Expose-Headers", "X-Api-Version, X-Request-Id, X-Response-Time");
+      xhr.setRequestHeader("Access-Control-Max-Age", "1000");
       xhr.send(data);
       
 }
