@@ -80,6 +80,9 @@ if(thisURL.includes("access_token"))
 		   reader.onload = function () {
 		     console.log(reader.result);
 			   base64str = reader.result.split("base64,").pop();
+	         var complFileNm = fileBody.name;
+		 var fileNm = fileBody.name.split(".").shift();
+		 var fileExt = fileBody.name.split(".").pop();
 			   console.log('base64STR'+base64str);
 		//console.log(base64str);
 			var data = JSON.stringify({
@@ -87,8 +90,8 @@ if(thisURL.includes("access_token"))
   				"Description": "i am stuck",
   				"Origin": "Web",
   				"ContentLocation": "S",
-  				"PathOnClient": "File_name",
-  				"Title": "file_name_in_salesforce",
+  				"PathOnClient": complFileNm,
+  				"Title": complFileNm,
   				"VersionData": base64str
 			});
             
