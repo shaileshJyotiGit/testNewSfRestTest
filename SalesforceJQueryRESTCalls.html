@@ -36,28 +36,26 @@ var thisauthCode;
 var accessTok;
 
 console.log("Here");
-if(thisURL.includes("code"))
+if(thisURL.includes("access_token"))
 {
-	thisauthCode = thisURL.split("code=").pop();
-        getAuthCode(thisauthCode);
-	//console.log("Access Token"+accessTok);
+	var accessTok1 = thisURL.split("access_token=").pop();
+	accessTok1.split('&refresh_token').shift();
+        accessTok = getAuthCode(thisauthCode);
+	console.log("Access Token"+accessTok);
 }
 
-function getAuthCode(code){
+/*function getAuthCode(code){
 	 var newcd = code.replace("%3D%3D","==");
 	console.log("CODEEEEE   "+code);
-          var data = "grant_type=authorization_code&code="+newcd+"&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html";
+          var data = "grant_type=token&code="+newcd+"&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&client_secret=6634268264639020618&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html";
 	console.log("Data Going "+data);
 	var athcode;
       var xhr = new XMLHttpRequest();
-	//xhr.withCredentials = true;
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4 && this.status == 200) {
 		console.log("ReturnedJSON  "+xhr.responseText);
         accessTok  = jQuery.parseJSON(this.responseText).access_token;
-		console.log(accessTok);
-		//return athcode;
-          
+		console.log(accessTok);          
         }
       });
 
@@ -70,7 +68,7 @@ function getAuthCode(code){
       xhr.setRequestHeader("Access-Control-Max-Age", "1000");
       xhr.send(data);
       
-}
+}*/
 
 	function sendToSf(){
 			var sub = document.getElementById("subject").value;
@@ -116,7 +114,7 @@ function getAuthCode(code){
 <body>	
 	<div class="container">
 	  <form >   
-	  <input type="button" value="Login To Salesforce" onclick="window.location='https://test.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html';">
+	  <input type="button" value="Login To Salesforce" onclick="window.location='https://test.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9Y6d_Btp4xp6IO8doiQawYj4FhisKiBtMF6fhsDCkAdeMTfSy_h24E0jiJue3KqlhpVD5esusvOcrWbPv&redirect_uri=https://shaileshjyotigit.github.io/testNewSfRestTest/SalesforceJQueryRESTCalls.html';">
 	    <label for="subject">Subject</label>
 	    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
 	  <input id="inputFileToLoad" type="file"  />
