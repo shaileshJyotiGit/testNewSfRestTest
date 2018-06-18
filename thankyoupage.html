@@ -1,6 +1,7 @@
 <!doctype html>
-<title>Thank you!</title>
-<style>
+<html>
+  <head>
+  <style>
   body { text-align: center; padding: 150px; }
   h1 { font-size: 25px; }
   body { font: 20px Helvetica, sans-serif; color: #333; }
@@ -8,6 +9,19 @@
   a { color: #dc8100; text-decoration: none; }
   a:hover { color: #333; text-decoration: none; }
 </style>
+    
+    <script>
+      var div = document.getElementById('itm');
 
-   <div> <h1>Thank You!<br/> The case has been created!</h1>
+      div.innerHTML += 'Case ID: '+thisURL.split("caseID").pop();
+    </script>
+  
+  </head>
+  <body>
+<title>Thank you!</title>
+
+
+    <div> <h1><div id="itm">Thank You!<br/> The case has been created!</div></h1>
    </div>
+    </body>
+  </html>
